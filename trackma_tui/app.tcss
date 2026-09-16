@@ -1,0 +1,156 @@
+/* Bare on purpose: a filter line, the list, the cover, a status line, a key
+   legend, and a ':' command line that appears only while in use.
+   $tk-bg is the terminal's own background, queried at startup.
+   Colours come from ui-textual.json via get_css_variables(). */
+
+Screen {
+    background: $tk-bg;
+}
+
+#filters {
+    height: 1;
+    background: $tk-bg;
+}
+
+#body {
+    height: 1fr;
+    background: $tk-bg;
+}
+
+#table {
+    width: 1fr;
+    height: 1fr;
+    background: $tk-bg;
+    /* The title column is sized to fit; any h-scrollbar is a rounding error. */
+    overflow-x: hidden;
+    scrollbar-size-vertical: 1;
+    scrollbar-size-horizontal: 0;
+}
+
+/* Every state, or the track shows as a pale stripe down the edge. */
+#table, #side, PagerScreen #pager-body {
+    scrollbar-background: $tk-bg;
+    scrollbar-background-hover: $tk-bg;
+    scrollbar-background-active: $tk-bg;
+    scrollbar-corner-color: $tk-bg;
+    scrollbar-color: $tk-cursor;
+    scrollbar-color-hover: $tk-dim;
+    scrollbar-color-active: $tk-accent;
+}
+
+/* Solid, not translucent: there may be nothing to blend alpha with. */
+#table > .datatable--cursor {
+    background: $tk-cursor;
+    text-style: bold;
+}
+
+#side {
+    width: 34;
+    padding: 0 1 0 2;
+    background: $tk-bg;
+    overflow-y: auto;
+    scrollbar-size-vertical: 1;
+}
+
+#cover {
+    width: 100%;
+    height: auto;
+}
+
+#cover-missing {
+    width: 100%;
+    height: 3;
+    color: $tk-dim;
+}
+
+#side-meta {
+    margin-top: 1;
+    color: $tk-dim;
+}
+
+#status {
+    height: 1;
+    padding: 0 1;
+    background: $tk-bg;
+    color: $tk-dim;
+}
+
+#legend {
+    height: 1;
+    background: $tk-bg;
+}
+
+/* Replaces the status line, so the bottom never shifts. */
+#cmdline {
+    height: 1;
+    background: $tk-bg;
+    display: none;
+}
+
+#cmdline.visible {
+    display: block;
+}
+
+#cmdprompt {
+    width: 2;
+    padding: 0 0 0 1;
+    background: $tk-bg;
+    color: $tk-accent;
+}
+
+#cmd {
+    border: none;
+    background: $tk-bg;
+    height: 1;
+    padding: 0;
+    color: $tk-normal;
+}
+
+#cmd:focus {
+    border: none;
+}
+
+/* Full-screen readers, not dialogs. */
+PagerScreen {
+    background: $tk-bg;
+}
+
+PagerScreen #pager-body {
+    height: 1fr;
+    padding: 1 2;
+    background: $tk-bg;
+    scrollbar-size-vertical: 1;
+}
+
+PagerScreen #pager-head {
+    height: auto;
+    margin-bottom: 1;
+}
+
+PagerScreen #pager-headtext {
+    width: 1fr;
+    height: auto;
+}
+
+PagerScreen #pager-cover {
+    width: 28;
+    height: auto;
+    margin-right: 2;
+}
+
+PagerScreen #pager-title {
+    text-style: bold;
+    color: $tk-normal;
+}
+
+PagerScreen #pager-content {
+    height: auto;
+    margin-top: 1;
+}
+
+PagerScreen #pager-status {
+    height: 1;
+    padding: 0 1;
+    background: $tk-bg;
+    color: $tk-dim;
+}

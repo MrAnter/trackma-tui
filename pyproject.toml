@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trackma-tui"
+version = "0.1.0"
+description = "A Textual terminal interface for Trackma, with cover art and a dark-readable palette"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "GPL-3.0-or-later" }
+dependencies = [
+    "trackma>=0.10",
+    "textual>=1.0",
+    "textual-image>=0.7",
+    "pillow",
+]
+
+[project.scripts]
+trackma-tui = "trackma_tui.app:main"
+
+[tool.setuptools]
+packages = ["trackma_tui"]
+
+[tool.setuptools.package-data]
+trackma_tui = ["*.tcss"]
