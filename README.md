@@ -158,6 +158,45 @@ They are stored at full resolution. The GUIs thumbnail before saving — which i
 why their cached covers look soft in a terminal that draws real pixels — and
 since they scale whatever is on disk, they benefit too.
 
+## Discord Rich Presence
+
+`hooks/discord_presence.py` shows what you're watching on Discord: "Watching
+<app name>", the show, `Episode 3 of 12`, the cover, a progress bar and an
+AniList button. Pausing stops the counter where the video is, seeking moves
+the bar, and it clears when the player closes.
+
+Pause and position are read from mpv over MPRIS (`mpv-mpris`), whatever
+tracker Trackma uses. Without it the presence still works, with elapsed time
+instead of the bar.
+
+It's a plain Trackma hook, so it works with **any** interface (Qt, GTK, curses,
+this one), not just trackma-tui. It talks to the Discord IPC socket directly:
+no extra dependencies, and it works with Vesktop too.
+
+1. Create an application at <https://discord.com/developers/applications>. Its
+   name is what Discord shows after "Watching", so call it `Anime` or similar.
+2. Put its Application ID in `~/.config/trackma/discord.json`, which stays out
+   of the repository:
+
+   ```json
+   {
+       "client_id": "123456789012345678"
+   }
+   ```
+
+3. Optional: under *Rich Presence → Art Assets* upload `hooks/assets/play.png`
+   and `pause.png`, named `play` and `pause`. They show as a small badge on the
+   cover while the video plays or is paused.
+4. Link the hook where Trackma looks for them (`use_hooks` must be `true` in
+   Trackma's `config.json`, the default):
+
+   ```bash
+   mkdir -p ~/.config/trackma/hooks
+   ln -s "$PWD/hooks/discord_presence.py" ~/.config/trackma/hooks/
+   ```
+
+Without `discord.json` the hook logs a warning and does nothing.
+
 ## Licence
 
 GPL-3.0-or-later, like Trackma.
